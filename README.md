@@ -18,7 +18,7 @@ Once the session has started, the auth-ms will sign a token that, used on subseq
 
 ## Architecture
 
-<img src="https://iili.io/26eHyve.th.png" width="200"  />
+![Image](https://github.com/user-attachments/assets/04a65ee4-d813-4c3c-9136-6914679a1aaf)
 
 ## Usage
 To use the Authentication Microservice repository, follow the setup instructions provided in the README file of the Products-launcher repository.
