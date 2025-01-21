@@ -27,8 +27,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
 
   async verifyToken(token: string) {
     try {
-      //separate iat and exp from user to be able to sign the token
-      const { iat, exp, ...user } = this.jwtService.verify(token, {
+      const { iat, exp, ...user } = await this.jwtService.verifyAsync(token, {
         secret: envs.jwtSecret,
       });
       return {
@@ -60,7 +59,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
       const newUser = await this.user.create({
         data: {
           email,
-          password: bcrypt.hashSync(password, 10),
+          password: await bcrypt.hash(password, 10),
           name,
         },
       });
@@ -94,7 +93,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
         });
       }
 
-      const isPasswordMatch = bcrypt.compareSync(password, user.password);
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch) {
         throw new RpcException({
           message: 'Email/password not valid',
